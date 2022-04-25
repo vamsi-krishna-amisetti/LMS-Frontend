@@ -40,7 +40,7 @@ export class AddEditEbookComponent implements OnInit {
     })
   }
 
-  updateBook(){
+  updateEBook(){
     var val = {
       eBookId : this.eBookId,
       eBookName : this.eBookName,

@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-book [user]="user" *ngIf="ActivateAddEditUserComp">
+                <app-add-edit-book [attr.user]="user" *ngIf="ActivateAddEditUserComp">
                 </app-add-edit-book>
             </div>
         </div>
@@ -38,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let dataItem of BookList">
+        <tr *ngFor="let dataItem of UserList">
             <td>{{dataItem.studentId}}</td>
             <td>{{dataItem.studentName}}</td>
             <td>{{dataItem.stunentEmail}}</td>
