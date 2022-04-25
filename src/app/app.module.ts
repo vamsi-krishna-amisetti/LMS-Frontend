@@ -20,6 +20,8 @@ import { SharedService } from './shared.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { OthersComponent } from './others/others.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddEditEbookComponent,
     IssuesComponent,
     ViewIssueComponent,
-    AddEditIssueComponent
+    AddEditIssueComponent,
+    LoginComponent,
+    OthersComponent
   ],
   imports: [
     BrowserModule,

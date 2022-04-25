@@ -1,1 +1,9 @@
-<p>add-edit-book works!</p>
+<div class="form-froup row">
+    <label class="col-sm-2 col-form-label">Book Name</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="bookName" placeholder="Enter Book Name">
+    </div>
+</div>
+
+<button (click)="addBook()" *ngIf="bookId==0" class="btn btn-primary">Add</button>
+<button (click)="updateBook()" *ngIf="bookId!=0" class="btn btn=primary">Update</button>
