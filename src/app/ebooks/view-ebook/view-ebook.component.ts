@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, TemplateRef, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view-ebook',
@@ -7,8 +9,9 @@ import { SharedService } from 'src/app/shared.service';
   styleUrls: ['./view-ebook.component.css']
 })
 export class ViewEbookComponent implements OnInit {
-
-  constructor(private service: SharedService) { }
+  
+  modalRef: BsModalRef = new BsModalRef;
+  constructor(public modalService: BsModalService, private service: SharedService) { }
 
   EBookList: any = [];
   ModalTitle: string = "";
@@ -19,7 +22,8 @@ export class ViewEbookComponent implements OnInit {
     this.refreshEBookList();
   }
 
-  addClick() {
+  addClick(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
     this.ebook = {
       eBookId: 0,
       eBookName: "",
@@ -32,9 +36,10 @@ export class ViewEbookComponent implements OnInit {
     this.ActivateAddEditEBookComp = true;
   }
 
-  editClick(item: any) {
+  editClick(template: TemplateRef<any>, item: any) {
+    this.modalRef = this.modalService.show(template);
     this.ebook = item;
-    this.ModalTitle = "Edit EBook"
+    this.ModalTitle = "Update EBook"
     this.ActivateAddEditEBookComp = true;
   }
 
@@ -44,7 +49,7 @@ export class ViewEbookComponent implements OnInit {
   }
 
   deleteItem(item: any) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure, you want to delete?')) {
       this.service.deleteEBook(item.eBookId).subscribe(data => {
         alert(data.toString());
         this.refreshEBookList();

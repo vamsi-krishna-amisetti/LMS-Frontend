@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, TemplateRef,OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view-user',
@@ -8,7 +10,8 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ViewUserComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  modalRef: BsModalRef = new BsModalRef;
+  constructor(public modalService: BsModalService, private service: SharedService) { }
 
   UserList: any = [];
   ModalTitle: string = "";
@@ -19,7 +22,8 @@ export class ViewUserComponent implements OnInit {
     this.refreshUserList();
   }
 
-  addClick() {
+  addClick(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
     this.user = {
       studentId: 0,
       studentName: "",
@@ -35,9 +39,10 @@ export class ViewUserComponent implements OnInit {
     this.ActivateAddEditUserComp = true;
   }
 
-  editClick(item: any) {
+  editClick(template: TemplateRef<any>, item: any) {
+    this.modalRef = this.modalService.show(template);
     this.user = item;
-    this.ModalTitle = "Edit User"
+    this.ModalTitle = "Update User"
     this.ActivateAddEditUserComp = true;
   }
 
@@ -47,7 +52,7 @@ export class ViewUserComponent implements OnInit {
   }
 
   deleteItem(item: any) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure, you want to delete?')) {
       this.service.deleteStudent(item.studentId).subscribe(data => {
         alert(data.toString());
         this.refreshUserList();

@@ -1,27 +1,18 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal"
-    (click)="addClick()" data-backdrop="static" data-keyboard="false">
-    Issue New Book
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <app-add-edit-book [attr.issue]="issue" *ngIf="ActivateAddEditIssueComp">
-                </app-add-edit-book>
-            </div>
-        </div>
-    </div>
+<div>
+    <button type="button" class="btn btn-primary float-right m-2" (click)="addClick(template)">Issue New Book</button>
 </div>
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{ModalTitle}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-add-edit-issue [issue]="issue" *ngIf="ActivateAddEditIssueComp">
+        </app-add-edit-issue>
+    </div>
+</ng-template>
 
 <table class="table table-striped">
     <thead>
@@ -40,8 +31,7 @@
             <td>{{dataItem.bookId}}</td>
             <td>{{dataItem.message}}</td>
             <td>
-                <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal"
-                    (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">
+                <button type="button" class="btn btn-light mr-1" (click)="editClick(template, dataItem)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path
@@ -50,12 +40,8 @@
                             d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                     </svg>
                 </button>
-                <button type="button" class="btn btn-light mr-1" (click)="deleteItem(dataItem)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-trash-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
+                <button type="button" class="btn btn-primary" (click)="deleteItem(dataItem)">
+                    Return Book
                 </button>
             </td>
         </tr>

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, TemplateRef, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view-issue',
@@ -8,7 +10,8 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ViewIssueComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  modalRef: BsModalRef = new BsModalRef;
+  constructor(public modalService: BsModalService, private service: SharedService) { }
 
   IssueList: any = [];
   ModalTitle: string = "";
@@ -19,7 +22,8 @@ export class ViewIssueComponent implements OnInit {
     this.refreshIssueList();
   }
 
-  addClick() {
+  addClick(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
     this.issue = {
       issueId: 0,
       studentId: 0,
@@ -30,9 +34,10 @@ export class ViewIssueComponent implements OnInit {
     this.ActivateAddEditIssueComp = true;
   }
 
-  editClick(item: any) {
+  editClick(template: TemplateRef<any>, item: any) {
+    this.modalRef = this.modalService.show(template);
     this.issue = item;
-    this.ModalTitle = "Edit Issue"
+    this.ModalTitle = "Update Issue"
     this.ActivateAddEditIssueComp = true;
   }
 
@@ -42,7 +47,7 @@ export class ViewIssueComponent implements OnInit {
   }
 
   deleteItem(item: any) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure, you want to return this book?')) {
       this.service.deleteIssue(item.issueId).subscribe(data => {
         alert(data.toString());
         this.refreshIssueList();
