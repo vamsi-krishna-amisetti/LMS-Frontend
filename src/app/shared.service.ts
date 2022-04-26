@@ -23,7 +23,7 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/Book',val)
   }
   deleteBook(val:any){
-    return this.http.delete(this.APIUrl+'/Book',val)
+    return this.http.delete(this.APIUrl+'/Book/'+val.toString())
   }
   getEBookList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/EBook')
@@ -38,7 +38,7 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/EBook',val)
   }
   deleteEBook(val:any){
-    return this.http.delete(this.APIUrl+'/EBook',val)
+    return this.http.delete(this.APIUrl+'/EBook/'+val.toString())
   }
   getFacultyList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/Faculty')
@@ -53,7 +53,7 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/Faculty',val)
   }
   deleteFaculty(val:any){
-    return this.http.delete(this.APIUrl+'/Faculty',val)
+    return this.http.delete(this.APIUrl+'/Faculty/'+val.toString())
   }
   getStudentList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/Student')
@@ -68,7 +68,7 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/Student',val)
   }
   deleteStudent(val:any){
-    return this.http.delete(this.APIUrl+'/Student',val)
+    return this.http.delete(this.APIUrl+'/Student/'+val.toString())
   }
   getIssueList():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'/Issue')
@@ -83,6 +83,6 @@ export class SharedService {
     return this.http.put(this.APIUrl+'/Issue',val)
   }
   deleteIssue(val:any){
-    return this.http.delete(this.APIUrl+'/Issue',val)
+    return this.http.delete(this.APIUrl+'/Issue/'+val.toString())
   }
 }
